@@ -36,16 +36,8 @@ export default function ModelViewer() {
       url: 'https://raw.githubusercontent.com/alecjacobson/common-3d-test-models/refs/heads/master/data/cow.obj'
     },
     {
-      name: 'Fandisk',
-      url: 'https://raw.githubusercontent.com/alecjacobson/common-3d-test-models/refs/heads/master/data/fandisk.obj'
-    },
-    {
       name: 'Happy Buddha',
       url: 'https://raw.githubusercontent.com/alecjacobson/common-3d-test-models/refs/heads/master/data/happy.obj'
-    },
-    {
-      name: 'Horse',
-      url: 'https://raw.githubusercontent.com/alecjacobson/common-3d-test-models/refs/heads/master/data/horse.obj'
     },
     {
       name: 'Max Planck',
@@ -82,22 +74,6 @@ export default function ModelViewer() {
     {
       name: 'XYZ Dragon',
       url: 'https://raw.githubusercontent.com/alecjacobson/common-3d-test-models/refs/heads/master/data/xyzrgb_dragon.obj'
-    },
-    {
-      name: 'Alligator',
-      url: 'https://raw.githubusercontent.com/alecjacobson/common-3d-test-models/refs/heads/master/data/alligator.obj'
-    },
-    {
-      name: 'Woody/Gingerbread Man',
-      url: 'https://raw.githubusercontent.com/alecjacobson/common-3d-test-models/refs/heads/master/data/woody.obj'
-    },
-    {
-      name: 'Lucy',
-      url: 'https://raw.githubusercontent.com/alecjacobson/common-3d-test-models/refs/heads/master/data/lucy.obj'
-    },
-    {
-      name: 'Bimba',
-      url: 'https://raw.githubusercontent.com/alecjacobson/common-3d-test-models/refs/heads/master/data/bimba.obj'
     },
     {
       name: 'Igea',

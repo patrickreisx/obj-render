@@ -232,7 +232,60 @@ function UseLoadFile(canvasRef, objData) {
       gl.drawElements(gl.TRIANGLES, parsedOBJ.indices.length, indexType, 0);
 
     };
+    let lastTouchX = 0;
+    let lastTouchY = 0;
+    let lastTouchDist = 0;
 
+    const handleTouchStart = (event) => {
+      event.preventDefault();
+      if (event.touches.length === 1) {
+        isDragging = true;
+        lastTouchX = event.touches[0].clientX;
+        lastTouchY = event.touches[0].clientY;
+      } else if (event.touches.length === 2) {
+        isPanning = true;
+        lastTouchDist = Math.hypot(
+          event.touches[0].clientX - event.touches[1].clientX,
+          event.touches[0].clientY - event.touches[1].clientY
+        );
+      }
+    };
+
+    const handleTouchMove = (event) => {
+      event.preventDefault();
+      if (event.touches.length === 1 && isDragging) {
+        const deltaX = event.touches[0].clientX - lastTouchX;
+        const deltaY = event.touches[0].clientY - lastTouchY;
+
+        rotationY += deltaX * 0.01;
+        rotationX += deltaY * 0.01;
+
+        lastTouchX = event.touches[0].clientX;
+        lastTouchY = event.touches[0].clientY;
+      } else if (event.touches.length === 2 && isPanning) {
+        const newDist = Math.hypot(
+          event.touches[0].clientX - event.touches[1].clientX,
+          event.touches[0].clientY - event.touches[1].clientY
+        );
+        const deltaDist = newDist - lastTouchDist;
+
+        cameraDistance -= deltaDist * 0.05;
+        if (cameraDistance < 1) cameraDistance = 1;
+
+        lastTouchDist = newDist;
+      }
+
+      updateViewMatrix();
+      drawScene();
+    };
+
+    const handleTouchEnd = (event) => {
+      event.preventDefault();
+      if (event.touches.length === 0) {
+        isDragging = false;
+        isPanning = false;
+      }
+    };
 
     const disableContextMenu = (event) => {
       event.preventDefault();
@@ -242,6 +295,10 @@ function UseLoadFile(canvasRef, objData) {
     canvasRef.current.addEventListener('wheel', handleMouseWheel);
     canvasRef.current.addEventListener('mousedown', handleMouseDown);
     canvasRef.current.addEventListener('mousemove', handleMouseMove);
+
+    canvasRef.current.addEventListener('touchstart', handleTouchStart, { passive: false });
+    canvasRef.current.addEventListener('touchmove', handleTouchMove, { passive: false });
+    canvasRef.current.addEventListener('touchend', handleTouchEnd);
     window.addEventListener('mouseup', handleMouseUp);
 
     updateViewMatrix();
